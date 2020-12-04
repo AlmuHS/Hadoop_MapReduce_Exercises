@@ -1,9 +1,6 @@
 #include <string>
-#include <vector>
 #include <utility>
 #include <iostream>
-#include <iterator>
-#include <locale>
 #include <map>
 
 
