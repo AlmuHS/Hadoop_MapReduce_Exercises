@@ -39,13 +39,16 @@ std::unordered_map<std::string, float> calculate_avg(std::istream& file){
 		float value = key_value.second;
 		
 		//Check if the key exists in the unordered_map
-		int exists = avg_map.count(key);
+		std::unordered_map<std::string, float>::iterator it_key = avg_map.find(key);
 		
 		//If exists, sum the new value
-		if(exists){
+		if(it_key != avg_map.end()){
+		
+			//Increase the number of ocurrences of this key
 			ocurrences_map[key]++;
-			int num_ocurrences = ocurrences_map[key];
-			avg_map[key] += value;
+			
+			//Sum the new value to this key
+			it_key->second += value;
 		}
 		//If not exists, add the pair to the unordered_map
 		else{
