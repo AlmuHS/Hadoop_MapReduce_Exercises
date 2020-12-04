@@ -12,7 +12,6 @@ std::pair<std::string, float> get_key_value(std::string line){
 	{
 		std::string key = line.substr(0,found);
 		std::string value = line.substr(found);
-		float valuei = std::stof(value.c_str());
 		
 		key_value.first = key;
 		key_value.second = std::stof(value);
