@@ -10,12 +10,18 @@
 
 #include <cstdio>
 
+struct data{
+	std::string city;
+	float radiation;
+	float rain;
+};
+
 const int RADIATION = 16;
 const int RAIN = 17;
 const int REGION = 1;
 const int CITY = 3;
 
-using map_pair = std::unordered_map<std::string, std::pair<float, float> >;
+using vector_data = std::vector<data>;
 
 template <class Container>
 void split(const std::string& str, Container& cont, char delim = ' ')
@@ -41,8 +47,8 @@ std::string fix_empty_values(std::string value){
 }
 
 
-map_pair read_csv(std::istream& file){
-	map_pair pair_list;
+vector_data read_csv(std::istream& file){
+	vector_data data;
 	
  	std::string line;
  	
@@ -67,14 +73,14 @@ map_pair read_csv(std::istream& file){
 		float rain = std::stof(rain_str);
 		float radiation = std::stof(radiation_str);
 		
-		pair_list[city] = std::make_pair(radiation, rain);	
+		data.push_back({city, radiation, rain});	
 	}
 	
-	return pair_list;
+	return data;
 }
 
 int main(void){
-	map_pair row_filtered;
+	vector_data row_filtered;
 	
 	//set locale to spanish. Necessary to read decimal point correctly
 	std::setlocale(LC_ALL, "es_ES.UTF-8");
@@ -85,7 +91,7 @@ int main(void){
 	
 	//write results to standard output
 	for (auto& row: row_filtered){
-		std::cout<<row.first<<"\t"<<row.second.first<<"\t"<<row.second.second<<"\n";
+		std::cout<<row.city<<"\t"<<row.radiation<<"\t"<<row.rain<<"\n";
 	}
 	
 	return 0;
