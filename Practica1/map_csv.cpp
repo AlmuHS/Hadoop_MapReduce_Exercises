@@ -8,8 +8,6 @@
 #include <locale>
 #include <unordered_map>
 
-#include <cstdio>
-
 struct data{
 	std::string city;
 	float radiation;
