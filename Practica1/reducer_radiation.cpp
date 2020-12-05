@@ -36,7 +36,6 @@ std::unordered_map<std::string, float> calculate_avg(std::istream& file){
 		//extract key and value
 		std::string city = values[0];
 		float radiation = std::stof(values[1]);
-		float rain = std::stof(values[2]);
 		
 		//Check if the key exists in the unordered_map
 		std::unordered_map<std::string, float>::iterator it_key = avg_radiation_map.find(city);
