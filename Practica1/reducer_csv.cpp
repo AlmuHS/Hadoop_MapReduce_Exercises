@@ -20,12 +20,9 @@ void split(const std::string& str, Container& cont, char delim = ' ')
     cont.push_back(str.substr(start, end - start));
 }
 
-using map_pair = std::unordered_map<std::string, std::pair<float, float> >;
-
-
-map_pair calculate_avg(std::istream& file){
+std::unordered_map<std::string, float> calculate_avg(std::istream& file){
 	std::unordered_map<std::string, int> ocurrences_map;
-	map_pair avg_radiation_rain;
+	std::unordered_map<std::string, float> avg_radiation_map;
 	
  	std::string line;
  	
@@ -42,60 +39,54 @@ map_pair calculate_avg(std::istream& file){
 		float rain = std::stof(values[2]);
 		
 		//Check if the key exists in the unordered_map
-		map_pair::iterator it_key = avg_radiation_rain.find(city);
+		std::unordered_map<std::string, float>::iterator it_key = avg_radiation_map.find(city);
 		
 		//If exists, sum the new value
-		if(it_key != avg_radiation_rain.end()){
+		if(it_key != avg_radiation_map.end()){
 		
 			//Increase the number of ocurrences of this key
 			ocurrences_map[city]++;
 			
 			//Sum the new values to this key
-			it_key->second.first += radiation;
-			it_key->second.second += rain;
+			it_key->second += radiation;
 		}
 		//If not exists, add the pair to the unordered_map
 		else{
-			avg_radiation_rain[city] = std::make_pair(radiation, rain);
+			avg_radiation_map[city] = radiation;
 		}
 	}
 	
 	//Calculate the average of each key
-	for(map_pair::iterator it = avg_radiation_rain.begin(); it != avg_radiation_rain.end(); ++it) {
+	for(std::unordered_map<std::string, float>::iterator it = avg_radiation_map.begin(); it != avg_radiation_map.end(); ++it) {
 	
 		//Get key and value
 		std::string city = it->first;
-		float radiation = it->second.first;
-		float rain = it->second.second;
+		float radiation = it->second;
 		
 		//Find the number of ocurrences of this key in the file
 		int ocurrences = ocurrences_map[city];
 		
 		//Calculate the average
-		it->second.first = radiation/ocurrences;
-		it->second.second = rain/ocurrences;
+		it->second = radiation/ocurrences;
 	}
 	
-	return avg_radiation_rain;
+	return avg_radiation_map;
 }
 
 
-int main(void){
-	map_pair avg_map;
-	
+int main(void){	
 	//read file from standard input
 	std::istream* std_in = &std::cin;
-	avg_map = calculate_avg(*std_in);
+	std::unordered_map<std::string, float> avg_map = calculate_avg(*std_in);
 	
 	//write results to standard output
 	for (auto& map: avg_map)
 	{
 		std::string city = map.first;
-		float radiation = map.second.first;
-		float rain = map.second.second;
+		float radiation = map.second;
 		
 		//show the result
-		std::cout<<city<<"\t"<<radiation<<"\t"<<rain<<"\n";
+		std::cout<<city<<"\t"<<radiation<<"\n";
 	}
 	
 	return 0;
