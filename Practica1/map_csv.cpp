@@ -14,12 +14,14 @@ struct data{
 	std::string city;
 	float radiation;
 	float rain;
+	int year;
 };
 
 const int RADIATION = 16;
 const int RAIN = 17;
 const int REGION = 1;
 const int CITY = 3;
+const int DATE = 4;
 
 using vector_data = std::vector<data>;
 
@@ -66,6 +68,12 @@ vector_data read_csv(std::istream& file){
 		std::string city = row[CITY];
 		std::string radiation_str = row[RADIATION];
 		std::string rain_str = row[RAIN];
+		std::string date = row[DATE];
+		
+		std::vector<std::string> date_split;
+		split(date, date_split, '/');
+		
+		int year = std::stoi(date_split[2]);
 		
 		radiation_str = fix_empty_values(radiation_str);
 		rain_str = fix_empty_values(rain_str);
@@ -73,7 +81,7 @@ vector_data read_csv(std::istream& file){
 		float rain = std::stof(rain_str);
 		float radiation = std::stof(radiation_str);
 		
-		data.push_back({city, radiation, rain});	
+		data.push_back({city, radiation, rain, year});	
 	}
 	
 	return data;
@@ -91,7 +99,7 @@ int main(void){
 	
 	//write results to standard output
 	for (auto& row: row_filtered){
-		std::cout<<row.city<<"\t"<<row.radiation<<"\t"<<row.rain<<"\n";
+		std::cout<<row.city<<"\t"<<row.radiation<<"\t"<<row.rain<<"\t"<<row.year<<"\n";
 	}
 	
 	return 0;
