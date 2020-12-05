@@ -41,8 +41,8 @@ vector_pair read_csv(std::istream& file){
 		//split the line by columns
 		split(line, row, ';');
 		
-		
-		if(row[REGION] == "\"Huelva\"" && row[CITY] != " " && row[RADIATION] != " "){
+		//Filter the radiation, together the city, of each city of Huelva. Ignore the rows with empty values
+		if(row[CITY] != " " && row[RADIATION] != " "){
 			pair_list.emplace_back(row[CITY], std::stof(row[RADIATION]));
 		}
 	}
