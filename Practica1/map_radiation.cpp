@@ -28,16 +28,13 @@ void filter_radiation_csv(std::istream& file){
 		
 		//Ignore the empty values
 		if(radiation_str != ""){
-			float radiation = std::stof(radiation_str);
-			std::cout<<city<<"\t"<<radiation<<"\n";
+			std::cout<<city<<"\t"<<radiation_str<<"\n";
 		}
 		
 	}
 }
 
 int main(void){
-	vector_data row_filtered;
-	
 	//set locale to spanish. Necessary to read decimal point correctly
 	std::setlocale(LC_ALL, "es_ES.UTF-8");
 	
