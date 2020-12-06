@@ -38,3 +38,11 @@ std::pair<std::string, float> get_key_value(std::string line){
 	
 	return key_value;
 }
+
+std::string fix_empty_values(std::string value){
+	if(value == "" || value[0] == '\n' || value[0] == '\r'){
+		value = "0";
+	}
+	
+	return value;
+}
