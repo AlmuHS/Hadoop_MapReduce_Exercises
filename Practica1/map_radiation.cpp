@@ -6,21 +6,7 @@
 
 #include "common.hpp"
 
-struct data{
-	std::string city;
-	float radiation;
-};
-
-
 using vector_data = std::vector<std::pair<std::string, float> >;
-
-std::string fix_empty_values(std::string value){
-	if(value == "" || value[0] == '\n' || value[0] == '\r'){
-		value = "0";
-	}
-	
-	return value;
-}
 
 
 void filter_radiation_csv(std::istream& file){	
