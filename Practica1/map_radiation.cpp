@@ -24,11 +24,14 @@ void filter_radiation_csv(std::istream& file){
 		
 		//Filter the data about radiation and rain of this city
 		std::string city = row[CITY];
-		std::string radiation_str = fix_empty_values(row[RADIATION]);
+		std::string radiation_str = row[RADIATION];
 		
-		float radiation = std::stof(radiation_str);
+		//Ignore the empty values
+		if(radiation_str != ""){
+			float radiation = std::stof(radiation_str);
+			std::cout<<city<<"\t"<<radiation<<"\n";
+		}
 		
-		std::cout<<city<<"\t"<<radiation<<"\n";
 	}
 }
 
