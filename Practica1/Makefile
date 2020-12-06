@@ -13,4 +13,4 @@ reducer_rain: reducer_rain.cpp
 	g++ reducer_rain.cpp -O2 -o reducer_rain
 
 clean:
-	rm map_csv combiner_radiation reduce_radiation reducer_rain
+	rm map_radiation combiner_radiation reduce_radiation reducer_rain
