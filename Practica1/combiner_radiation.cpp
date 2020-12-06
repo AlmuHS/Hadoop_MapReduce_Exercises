@@ -5,7 +5,7 @@
 
 #include "common.hpp"
 
-std::unordered_map<std::string, float> calculate_avg(std::istream& file){
+void calculate_avg(std::istream& file){
 	std::unordered_map<std::string, int> ocurrences_map;
 	std::unordered_map<std::string, float> avg_radiation_map;
 	
@@ -50,27 +50,16 @@ std::unordered_map<std::string, float> calculate_avg(std::istream& file){
 		int ocurrences = ocurrences_map[city];
 		
 		//Calculate the average
-		it->second = radiation/ocurrences;
+		radiation = radiation/ocurrences;
+		std::cout<<city<<"\t"<<radiation<<"\n";
 	}
-	
-	return avg_radiation_map;
 }
 
 
 int main(void){	
 	//read file from standard input
 	std::istream* std_in = &std::cin;
-	std::unordered_map<std::string, float> avg_map = calculate_avg(*std_in);
-	
-	//write results to standard output
-	for (auto& map: avg_map)
-	{
-		std::string city = map.first;
-		float radiation = map.second;
-		
-		//show the result
-		std::cout<<city<<"\t"<<radiation<<"\n";
-	}
+	calculate_avg(*std_in);
 	
 	return 0;
 }

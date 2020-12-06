@@ -23,9 +23,7 @@ std::string fix_empty_values(std::string value){
 }
 
 
-vector_data read_csv(std::istream& file){
-	vector_data data;
-	
+void read_csv(std::istream& file){	
  	std::string line;
  	
 	//Skip header
@@ -44,10 +42,8 @@ vector_data read_csv(std::istream& file){
 		
 		float radiation = std::stof(radiation_str);
 		
-		data.emplace_back(city, radiation);	
+		std::cout<<city<<"\t"<<radiation<<"\n";
 	}
-	
-	return data;
 }
 
 int main(void){
@@ -58,15 +54,7 @@ int main(void){
 	
 	//read file from standard input
 	std::istream* std_in = &std::cin;
-	row_filtered = read_csv(*std_in);
-	
-	//write results to standard output
-	for (auto& row: row_filtered){
-		std::string city = row.first;
-		float radiation = row.second;
-	
-		std::cout<<city<<"\t"<<radiation<<"\n";
-	}
+	read_csv(*std_in);
 	
 	return 0;
 }
