@@ -5,20 +5,7 @@
 #include <algorithm>
 #include <vector>
 
-template <class Container>
-void split(const std::string& str, Container& cont, char delim = ' ')
-{
-    size_t start = 0;
-    size_t end = str.find(delim);
-
-    while (end != std::string::npos)
-    {
-        cont.push_back(str.substr(start, end-start));
-        start = end + 1;
-        end = str.find(delim, start);
-    }
-    cont.push_back(str.substr(start, end - start));
-}
+#include "common.hpp"
 
 std::unordered_map<std::string, float> calculate_avg(std::istream& file){
 	std::unordered_map<std::string, int> ocurrences_map;
@@ -30,12 +17,11 @@ std::unordered_map<std::string, float> calculate_avg(std::istream& file){
 	while(std::getline(file, line)){
 	
 		//Split the line in key and values
-		std::vector<std::string> values;
-		split(line, values, '\t');
+		std::pair<std::string, float> city_radiation = get_key_value(line);
 		
 		//extract key and value
-		std::string city = values[0];
-		float radiation = std::stof(values[1]);
+		std::string city = city_radiation.first;
+		float radiation = city_radiation.second;
 		
 		//Check if the key exists in the unordered_map
 		std::unordered_map<std::string, float>::iterator it_key = avg_radiation_map.find(city);
@@ -51,7 +37,7 @@ std::unordered_map<std::string, float> calculate_avg(std::istream& file){
 		}
 		//If not exists, add the pair to the unordered_map
 		else{
-			avg_radiation_map[city] = radiation;
+			avg_radiation_map.insert(city_radiation);
 		}
 	}
 	
