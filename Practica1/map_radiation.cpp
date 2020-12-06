@@ -23,7 +23,7 @@ std::string fix_empty_values(std::string value){
 }
 
 
-void read_csv(std::istream& file){	
+void filter_radiation_csv(std::istream& file){	
  	std::string line;
  	
 	//Skip header
@@ -54,7 +54,7 @@ int main(void){
 	
 	//read file from standard input
 	std::istream* std_in = &std::cin;
-	read_csv(*std_in);
+	filter_radiation_csv(*std_in);
 	
 	return 0;
 }
