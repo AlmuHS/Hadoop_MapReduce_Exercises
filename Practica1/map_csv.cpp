@@ -11,8 +11,6 @@
 struct data{
 	std::string city;
 	float radiation;
-	float rain;
-	int year;
 };
 
 const int RADIATION = 16;
@@ -21,10 +19,9 @@ const int REGION = 1;
 const int CITY = 3;
 const int DATE = 4;
 
-using vector_data = std::vector<data>;
+using vector_data = std::vector<std::pair<std::string, float> >;
 
-template <class Container>
-void split(const std::string& str, Container& cont, char delim = ' ')
+void split(const std::string& str, std::vector<std::string>& cont, char delim = ' ')
 {
     size_t start = 0;
     size_t end = str.find(delim);
@@ -64,22 +61,11 @@ vector_data read_csv(std::istream& file){
 		
 		//Filter the data about radiation and rain of this city
 		std::string city = row[CITY];
-		std::string radiation_str = row[RADIATION];
-		std::string rain_str = row[RAIN];
-		std::string date = row[DATE];
+		std::string radiation_str = fix_empty_values(row[RADIATION]);
 		
-		std::vector<std::string> date_split;
-		split(date, date_split, '/');
-		
-		int year = std::stoi(date_split[2]);
-		
-		radiation_str = fix_empty_values(radiation_str);
-		rain_str = fix_empty_values(rain_str);
-		
-		float rain = std::stof(rain_str);
 		float radiation = std::stof(radiation_str);
 		
-		data.push_back({city, radiation, rain, year});	
+		data.emplace_back(city, radiation);	
 	}
 	
 	return data;
@@ -97,7 +83,10 @@ int main(void){
 	
 	//write results to standard output
 	for (auto& row: row_filtered){
-		std::cout<<row.city<<"\t"<<row.radiation<<"\t"<<row.rain<<"\t"<<row.year<<"\n";
+		std::string city = row.first;
+		float radiation = row.second;
+	
+		std::cout<<city<<"\t"<<radiation<<"\n";
 	}
 	
 	return 0;
