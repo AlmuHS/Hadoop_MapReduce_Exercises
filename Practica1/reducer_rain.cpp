@@ -16,12 +16,11 @@ std::unordered_map<int, float> sum_rain(std::istream& file){
 	while(std::getline(file, line)){
 	
 		//Split the line in key and values
-		std::vector<std::string> values;
-		split(line, values, '\t');
+		std::pair<std::string, float> values = get_key_value(line);
 		
 		//extract key and value
-		int year = std::stoi(values[0]);
-		float rain = std::stof(values[1]);
+		int year = std::stoi(values.first);
+		float rain = values.second;
 		
 		//Check if the key exists in the unordered_map
 		std::unordered_map<int, float>::iterator it_year = year_rain.find(year);
