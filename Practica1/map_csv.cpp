@@ -1,39 +1,18 @@
 #include <string>
-#include <sstream>
 #include <vector>
 #include <utility>
 #include <iostream>
-#include <iterator>
-#include <regex>
 #include <locale>
-#include <unordered_map>
+
+#include "common.hpp"
 
 struct data{
 	std::string city;
 	float radiation;
 };
 
-const int RADIATION = 16;
-const int RAIN = 17;
-const int REGION = 1;
-const int CITY = 3;
-const int DATE = 4;
 
 using vector_data = std::vector<std::pair<std::string, float> >;
-
-void split(const std::string& str, std::vector<std::string>& cont, char delim = ' ')
-{
-    size_t start = 0;
-    size_t end = str.find(delim);
-
-    while (end != std::string::npos)
-    {
-        cont.push_back(str.substr(start, end-start));
-        start = end + 1;
-        end = str.find(delim, start);
-    }
-    cont.push_back(str.substr(start, end - start));
-}
 
 std::string fix_empty_values(std::string value){
 	if(value == "" || value[0] == '\n' || value[0] == '\r'){
