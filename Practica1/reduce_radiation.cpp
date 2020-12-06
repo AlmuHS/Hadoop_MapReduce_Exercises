@@ -10,8 +10,7 @@ std::pair<std::string, float> calculate_max_radiation(std::istream& file){
  	std::string line;
  	
  	float max_rad = 0;
- 	std::string city_max_rad;
- 	
+ 	std::pair<std::string, float> city_max_rad;
  	std::pair<std::string, float> city_radiation;
  	
  	//Read file line to line
@@ -21,19 +20,18 @@ std::pair<std::string, float> calculate_max_radiation(std::istream& file){
 		city_radiation = get_key_value(line);
 		
 		//extract key and value
-		std::string city = city_radiation.first;
 		float radiation = city_radiation.second;
 		
 		//Update max radiation
 		if(radiation > max_rad){
 			max_rad = radiation;
-			city_max_rad = city;
+			city_max_rad = city_radiation;
 		}
 		
 	}
 	
 	//Return a pair with the city of max radiation and its value
-	max_rad_pair = city_radiation;
+	max_rad_pair = city_max_rad;
 	
 	return max_rad_pair;
 }
@@ -47,6 +45,7 @@ int main(void){
 	//write results to standard output
 	std::string city = max_rad_pair.first;
 	float radiation = max_rad_pair.second;
+	
 	std::cout<<city<<"\t"<<radiation<<"\n";
 	
 	return 0;
