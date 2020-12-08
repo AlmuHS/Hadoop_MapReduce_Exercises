@@ -2,6 +2,7 @@
 #include <vector>
 #include <utility>
 
+const int ID = 2;
 const int RADIATION = 16;
 const int RAIN = 17;
 const int CITY = 3;
