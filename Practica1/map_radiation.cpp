@@ -7,7 +7,7 @@
 
 #include "common.hpp"
 
-using vector_data = std::vector<std::pair<std::string, float> >;
+using vector_pair = std::vector<std::pair<std::string, float> >;
 
 void filter_radiation_csv(std::istream& file){	
  	std::string line;
