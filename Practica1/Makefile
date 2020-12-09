@@ -1,10 +1,7 @@
-all: map_radiation combiner_radiation reduce_radiation map_rain reducer_rain
+all: map_radiation reduce_radiation map_rain reducer_rain
 
 map_radiation: map_radiation.cpp
 	g++ map_radiation.cpp -O2 -o map_radiation
-	
-combiner_radiation: combiner_radiation.cpp
-	g++ combiner_radiation.cpp -O2 -o combiner_radiation
 
 reduce_radiation: reduce_radiation.cpp
 	g++ reduce_radiation.cpp -O2 -o reduce_radiation

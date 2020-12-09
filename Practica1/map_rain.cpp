@@ -9,6 +9,35 @@
 
 using vector_data = std::vector<std::pair<std::string, float> >;
 
+std::string calculate_max_radiation(std::istream& file){
+ 	std::string line;
+ 	
+ 	float max_rad = 0;
+ 	std::pair<std::string, float> city_max_rad;
+ 	std::pair<std::string, float> city_radiation;
+ 	
+ 	//Read file line to line
+	while(std::getline(file, line)){
+	
+		//Split the line in key and values
+		city_radiation = get_key_value(line);
+		
+		//extract key and value
+		float radiation = city_radiation.second;
+		
+		//Update max radiation
+		if(radiation > max_rad){
+			max_rad = radiation;
+			city_max_rad = city_radiation;
+		}
+		
+	}
+	
+	//Return a pair with the city of max radiation and its value
+	
+	return city_max_rad.first;
+}
+
 
 void filter_rain_csv(std::istream& file, std::string city_max_rad){	
  	std::string line;
@@ -43,8 +72,10 @@ int main(void){
 	
 	//Read results from previous job
 	std::fstream output_radiation("output_radiation/part-00000", std::fstream::in);
-	std::string city_max_rad;
-	output_radiation>>city_max_rad;
+	std::string city_max_rad = calculate_max_radiation(output_radiation);
+	
+//	std::string city_max_rad;
+//	output_radiation>>city_max_rad;
 	
 	//read csv file from standard input
 	std::istream* std_in = &std::cin;

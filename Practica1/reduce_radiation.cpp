@@ -1,52 +1,65 @@
 #include <string>
 #include <utility>
 #include <iostream>
+#include <unordered_map>
 
 #include "common.hpp"
 
-std::pair<std::string, float> calculate_max_radiation(std::istream& file){
-	std::pair<std::string, float> max_rad_pair;
+void calculate_avg(std::istream& file){
+	std::unordered_map<std::string, int> ocurrences_map;
+	std::unordered_map<std::string, float> sum_radiation_map;
 	
  	std::string line;
- 	
- 	float max_rad = 0;
- 	std::pair<std::string, float> city_max_rad;
- 	std::pair<std::string, float> city_radiation;
  	
  	//Read file line to line
 	while(std::getline(file, line)){
 	
 		//Split the line in key and values
-		city_radiation = get_key_value(line);
+		std::pair<std::string, float> city_radiation = get_key_value(line);
 		
 		//extract key and value
+		std::string city = city_radiation.first;
 		float radiation = city_radiation.second;
 		
-		//Update max radiation
-		if(radiation > max_rad){
-			max_rad = radiation;
-			city_max_rad = city_radiation;
-		}
+		//Check if the key exists in the unordered_map
+		std::unordered_map<std::string, float>::iterator it_key = sum_radiation_map.find(city);
 		
+		//If exists, sum the new value
+		if(it_key != sum_radiation_map.end()){
+		
+			//Increase the number of ocurrences of this key
+			ocurrences_map[city]++;
+			
+			//Sum the new values to this key
+			it_key->second += radiation;
+		}
+		//If not exists, add the pair to the unordered_map
+		else{
+			sum_radiation_map.insert(city_radiation);
+		}
 	}
 	
-	//Return a pair with the city of max radiation and its value
-	max_rad_pair = city_max_rad;
+	//Calculate the average of each key
+	for(std::unordered_map<std::string, float>::iterator it = sum_radiation_map.begin(); it != sum_radiation_map.end(); ++it) {
 	
-	return max_rad_pair;
+		//Get key and value
+		std::string city = it->first;
+		float sum_radiation = it->second;
+		
+		//Find the number of ocurrences of this key in the file
+		int ocurrences = ocurrences_map[city];
+		
+		//Calculate the average
+		float avg_radiation = sum_radiation/ocurrences;
+		std::cout<<city<<"\t"<<avg_radiation<<"\n";
+	}
 }
 
 
 int main(void){	
 	//read file from standard input
 	std::istream* std_in = &std::cin;
-	std::pair<std::string, float> max_rad_pair = calculate_max_radiation(*std_in);
-	
-	//write results to standard output
-	std::string city = max_rad_pair.first;
-	float radiation = max_rad_pair.second;
-	
-	std::cout<<city<<"\t"<<radiation<<"\n";
+	calculate_avg(*std_in);
 	
 	return 0;
 }
