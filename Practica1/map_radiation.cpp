@@ -7,8 +7,6 @@
 
 #include "common.hpp"
 
-using vector_pair = std::vector<std::pair<std::string, float> >;
-
 void filter_radiation_csv(std::istream& file){	
  	std::string line;
  	
