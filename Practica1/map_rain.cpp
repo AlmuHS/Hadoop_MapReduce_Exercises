@@ -72,10 +72,9 @@ int main(void){
 	
 	//Read results from previous job
 	std::fstream output_radiation("output_radiation/part-00000", std::fstream::in);
-	std::string city_max_rad = calculate_max_radiation(output_radiation);
 	
-//	std::string city_max_rad;
-//	output_radiation>>city_max_rad;
+	//Get the name of the city with higher radiation
+	std::string city_max_rad = calculate_max_radiation(output_radiation);
 	
 	//read csv file from standard input
 	std::istream* std_in = &std::cin;
