@@ -41,9 +41,6 @@ void filter_radiation_csv(std::istream& file){
 }
 
 int main(void){
-	//set locale to spanish. Necessary to read decimal point correctly
-	std::setlocale(LC_ALL, "es_ES.UTF-8");
-	
 	//read file from standard input
 	std::istream* std_in = &std::cin;
 	filter_radiation_csv(*std_in);

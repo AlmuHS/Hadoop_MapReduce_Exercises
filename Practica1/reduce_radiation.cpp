@@ -36,6 +36,9 @@ void calculate_avg(std::istream& file){
 		//If not exists, add the pair to the unordered_map
 		else{
 			sum_radiation_map.insert(city_radiation);
+			
+			//Increase the number of ocurrences of this key
+			ocurrences_map[city] = 1;
 		}
 	}
 	
@@ -57,6 +60,9 @@ void calculate_avg(std::istream& file){
 
 
 int main(void){	
+	//set locale to spanish. Necessary to read decimal point correctly
+	std::setlocale(LC_ALL, "es_ES.UTF-8");
+
 	//read file from standard input
 	std::istream* std_in = &std::cin;
 	calculate_avg(*std_in);
