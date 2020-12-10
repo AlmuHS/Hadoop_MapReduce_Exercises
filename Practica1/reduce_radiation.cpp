@@ -43,11 +43,11 @@ void calculate_avg(std::istream& file){
 	}
 	
 	//Calculate the average of each key
-	for(std::unordered_map<std::string, float>::iterator it = sum_radiation_map.begin(); it != sum_radiation_map.end(); ++it) {
+	for(auto& it: sum_radiation_map){
 	
 		//Get key and value
-		std::string city = it->first;
-		float sum_radiation = it->second;
+		std::string city = it.first;
+		float sum_radiation = it.second;
 		
 		//Find the number of ocurrences of this key in the file
 		int ocurrences = ocurrences_map[city];
