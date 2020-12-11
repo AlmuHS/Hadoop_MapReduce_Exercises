@@ -12,7 +12,6 @@ using vector_data = std::vector<std::pair<std::string, float> >;
 std::string calculate_max_radiation(std::istream& file){
  	std::string line;
  	
- 	float max_rad = 0;
  	std::pair<std::string, float> city_max_rad;
  	std::pair<std::string, float> city_radiation;
  	
@@ -24,6 +23,7 @@ std::string calculate_max_radiation(std::istream& file){
 		
 		//extract key and value
 		float radiation = city_radiation.second;
+		float max_rad = city_max_rad.second;
 		
 		//Update max radiation
 		if(radiation > max_rad){

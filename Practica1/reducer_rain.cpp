@@ -7,8 +7,8 @@
 
 #include "common.hpp"
 
-std::unordered_map<int, float> sum_rain(std::istream& file){
-	std::unordered_map<int, float> year_rain;
+std::unordered_map<std::string, float> sum_rain(std::istream& file){
+	std::unordered_map<std::string, float> year_rain;
 	
  	std::string line;
  	
@@ -19,11 +19,11 @@ std::unordered_map<int, float> sum_rain(std::istream& file){
 		std::pair<std::string, float> values = get_key_value(line);
 		
 		//extract key and value
-		int year = std::stoi(values.first);
+		std::string year = values.first;
 		float rain = values.second;
 		
 		//Check if the key exists in the unordered_map
-		std::unordered_map<int, float>::iterator it_year = year_rain.find(year);
+		std::unordered_map<std::string, float>::iterator it_year = year_rain.find(year);
 		
 		//If exists, sum the new value
 		if(it_year != year_rain.end()){
@@ -45,12 +45,12 @@ int main(void){
 
 	//read file from standard input
 	std::istream* std_in = &std::cin;
-	std::unordered_map<int, float> year_rain = sum_rain(*std_in);
+	std::unordered_map<std::string, float> year_rain = sum_rain(*std_in);
 	
 	//write results to standard output
 	for (auto& map: year_rain)
 	{
-		int year = map.first;
+		std::string year = map.first;
 		float rain = map.second;
 		
 		std::cout<<year<<"\t"<<rain<<"\n";
