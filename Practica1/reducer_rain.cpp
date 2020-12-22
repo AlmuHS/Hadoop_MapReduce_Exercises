@@ -25,13 +25,14 @@ std::map<std::string, float> sum_rain(std::istream& file){
 		//Check if the key exists in the unordered_map
 		std::map<std::string, float>::iterator it_year = year_rain.find(year);
 		
-		//If exists, sum the new value
-		if(it_year != year_rain.end()){
-			it_year->second += rain;
-		}
 		//If not exists, add the pair to the unordered_map
-		else{
+		if(it_year == year_rain.end()){
 			year_rain[year] = rain;
+			
+		}
+		//If exists, sum the new value
+		else{
+			it_year->second += rain;
 		}
 	}
 	
