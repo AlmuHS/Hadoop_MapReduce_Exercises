@@ -596,37 +596,31 @@ El *mapper* está implementado en el fichero `map_rain.cpp`, y se compone de una
 	  
 	  Esta función irá leyendo el fichero línea a línea, separando las claves y valores (ciudad, radiación), y comparando sus valores de radiación para obtener aquella con mayor valor. Para recorrer el fichero, volveremos a utilizar la función `std::getline(fichero, linea)`, tal y como se ha hecho en los ficheros anteriores.
 	  
-	  Para realizar la comparación de la ciudad actual con la de mayor radiación, utilizaremos dos pares (ciudad, radiación): uno que almacenará la ciudad actual con su radiación, y otro el de la ciudad con mayor radiación hasta el momento. Para inicializar los valores de estos pares, leemos una línea antes de comenzar el bucle de lectura. También nos creamos la variable auxiliar `max_rad`, para almacenar el máximo valor de radiación, y la inicializamos a -1.
-	    
-		//Read first line, to initialize variables
-	 	std::getline(file, line);
+	  Para realizar la comparación de la ciudad actual con la de mayor radiación, utilizaremos dos pares (ciudad, radiación): uno que almacenará la ciudad actual con su radiación, y otro el de la ciudad con mayor radiación hasta el momento. 
 	 	
 	 	//Split the line in key and values
 		std::pair<std::string,float> city_radiation = get_key_value(line);
 		
 		//Initialize city_max_rad to the first city of the file
 	 	std::pair<std::string, float> city_max_rad = city_radiation;
- 	
-	 	//Initialize the maximum radiation value
-	 	float max_rad = -1;
 			  
-	Hecho esto, arrancamos el bucle de lectura para leer el resto del fichero. Creamos la variable temporal `radiation` para almacenar el valor de radiación de la ciudad actual, con el fin de mejorar la legibilidad. 	La variable `max_rad` se irá actualizando con el máximo actual, para facilitar la legibilidad también en la comparación.
+	Hecho esto, arrancamos el bucle de lectura para leer el resto del fichero. Creamos las variable temporales `radiation` y `map_rad` para almacenar el valor de radiación de la ciudad actual y el máximo actual, con el fin de mejorar la legibilidad. 
 	
 		//Read file line to line
 		while(std::getline(file, line)){
 			//Split the line in key and values
-			city_radiation = get_key_value(line);
+			std::pair<std::string,float> city_radiation = get_key_value(line);
 			
 			//extract key and value
 			float radiation = city_radiation.second;
+			float max_rad = city_max_rad.second;
 			
 			//Update max radiation
 			if(radiation > max_rad){
 				city_max_rad = city_radiation;
-				max_rad = city_max_rad.second;
 			}
-		}	
-	  
+		}
+
 	  Una vez calculemos el mayor, devolveremos su nombre mediante el atributo `first` de `city_max_rad`.  
 	    
 	   	return city_max_rad.first;
@@ -643,11 +637,16 @@ El *mapper* está implementado en el fichero `map_rain.cpp`, y se compone de una
 		//Get the name of the city with higher radiation
 		std::string city_max_rad = calculate_max_radiation(output_radiation);
 		
+		//set locale to spanish. Necessary to read decimal separator correctly
+	    std::setlocale(LC_ALL, "es_ES.UTF-8");
+		
 		//read csv file from standard input
 		std::istream* std_in = &std::cin;
 		
 		//Call to mapper function, passing the city with highest radiation by parameter
 		filter_rain_csv(*std_in, city_max_rad);
+		
+	En este caso, la configuración de las locales se realiza después de la lectura del fichero de salida de la primera tarea, debido a que este fichero de salida usa el punto como separador decimal.
 		
 - **Filtrado de las precipitaciones y fechas de la ciudad con mayor radiación**  
 
@@ -698,35 +697,25 @@ El código completo del fichero es este:
 	std::string calculate_max_radiation(std::istream& file){
 	 	std::string line;
 	 	
-	 	//Read first line, to initialize variables
-	 	std::getline(file, line);
-	 	
-	 	//Split the line in key and values
-		std::pair<std::string,float> city_radiation = get_key_value(line);
-		
-		//Initialize city_max_rad to the first city of the file
-	 	std::pair<std::string, float> city_max_rad = city_radiation;
-	 	
-	 	//Initialize the maximum radiation value
-	 	float max_rad = -1;
+	 	//Store the current maximum
+	 	std::pair<std::string, float> city_max_rad;
 	 	
 	 	//Read file line to line
 		while(std::getline(file, line)){
 			//Split the line in key and values
-			city_radiation = get_key_value(line);
+			std::pair<std::string,float> city_radiation = get_key_value(line);
 			
 			//extract key and value
 			float radiation = city_radiation.second;
+			float max_rad = city_max_rad.second;
 			
 			//Update max radiation
 			if(radiation > max_rad){
 				city_max_rad = city_radiation;
-				max_rad = city_max_rad.second;
 			}
 		}
 		
-		//Return a pair with the city of max radiation and its value
-		
+		//Return the name of the city with highest radiation
 		return city_max_rad.first;
 	}
 	
@@ -759,14 +748,14 @@ El código completo del fichero es este:
 	}
 	
 	int main(void){
-		//set locale to spanish. Necessary to read decimal separator correctly
-		std::setlocale(LC_ALL, "es_ES.UTF-8");
-		
 		//Read results from previous job
 		std::fstream output_radiation("output_radiation/part-00000", std::fstream::in);
 		
 		//Get the name of the city with higher radiation
 		std::string city_max_rad = calculate_max_radiation(output_radiation);
+		
+		//set locale to spanish. Necessary to read decimal separator correctly
+		std::setlocale(LC_ALL, "es_ES.UTF-8");
 		
 		//read csv file from standard input
 		std::istream* std_in = &std::cin;
