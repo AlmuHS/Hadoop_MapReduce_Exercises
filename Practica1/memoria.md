@@ -1170,21 +1170,22 @@ En el fichero `output_radiation/part-00000`, podremos ver la salida de la primer
 	
 En el fichero `output_rain/part-00000` vemos la salida de la segunda tarea
 
-	2000	289.6
-	2001	699.6
-	2002	501.2
-	2003	801.2
-	2004	537.8
-	2005	234.4
-	2006	670.6
-	2007	373.2
-	2008	600.2
-	2009	480.094
-	2010	928.133
-	2011	589.63
-	2012	393.2
-	2013	448
-	2014	80
+	1999	8.6
+	2000	639.8
+	2001	340
+	2002	570.8
+	2003	877.8
+	2004	445.6
+	2005	332.4
+	2006	613.4
+	2007	439
+	2008	576.2
+	2009	561.2
+	2010	883
+	2011	479.4
+	2012	430.4
+	2013	342.4
+	2014	62.2
 	
 Vemos que, en ambos casos, la salida obtenida es la esperada.
 
@@ -1571,21 +1572,22 @@ Si abrimos el fichero `output_radiation/part-00000`, veremos la salida de la pri
 	
 En el fichero `output_rain/part-00000` veremos la salida de la segunda tarea:
 
-	2000	289.6
-	2001	699.6
-	2002	501.2
-	2003	801.2
-	2004	537.8
-	2005	234.4
-	2006	670.6
-	2007	373.2
-	2008	600.2
-	2009	480.094
-	2010	928.133
-	2011	589.63
-	2012	393.2
-	2013	448
-	2014	80
+	1999	8.6
+	2000	639.8
+	2001	340
+	2002	570.8
+	2003	877.8
+	2004	445.6
+	2005	332.4
+	2006	613.4
+	2007	439
+	2008	576.2
+	2009	561.2
+	2010	883
+	2011	479.4
+	2012	430.4
+	2013	342.4
+	2014	62.2
 
 Vemos que los resultados son los mismos que en la ejecución anterior, sobre Hadoop *standalone*
 
@@ -1614,6 +1616,7 @@ Para poder realizar el cambio de forma automática, modificamos el script `hadoo
 			
 			#Update variable to get the new path
 			export HADOOP_HOME
+			export JAVA_HOME
 		fi
 	fi
 
