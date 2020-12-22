@@ -6,7 +6,7 @@ AS (id_region:int, name_region:chararray, id_station: chararray, name_station: c
 	dir_wind: chararray, radiation: chararray, rain: chararray
 );
 
-/* Preprocessing: Extract the relevant fields from the field, fixing the format
+/* Preprocessing: Extract the relevant fields from the file, fixing the format
  * and casting to appropiated type
  */
 
