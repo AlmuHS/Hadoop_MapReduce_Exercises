@@ -12,35 +12,24 @@ using vector_data = std::vector<std::pair<std::string, float> >;
 std::string calculate_max_radiation(std::istream& file){
  	std::string line;
  	
- 	//Read first line, to initialize variables
- 	std::getline(file, line);
- 	
- 	//Split the line in key and values
-	std::pair<std::string,float> city_radiation = get_key_value(line);
-	
-	//Initialize city_max_rad to the first city of the file
- 	std::pair<std::string, float> city_max_rad = city_radiation;
- 	
- 	//Initialize the maximum radiation value
- 	float max_rad = -1;
+ 	std::pair<std::string, float> city_max_rad;
  	
  	//Read file line to line
 	while(std::getline(file, line)){
 		//Split the line in key and values
-		city_radiation = get_key_value(line);
+		std::pair<std::string,float> city_radiation = get_key_value(line);
 		
 		//extract key and value
 		float radiation = city_radiation.second;
+		float max_rad = city_max_rad.second;
 		
 		//Update max radiation
 		if(radiation > max_rad){
 			city_max_rad = city_radiation;
-			max_rad = city_max_rad.second;
 		}
 	}
 	
-	//Return a pair with the city of max radiation and its value
-	
+	//Return the name of the city with highest radiation
 	return city_max_rad.first;
 }
 
@@ -73,14 +62,14 @@ void filter_rain_csv(std::istream& file, std::string city_max_rad){
 }
 
 int main(void){
-	//set locale to spanish. Necessary to read decimal separator correctly
-	std::setlocale(LC_ALL, "es_ES.UTF-8");
-	
 	//Read results from previous job
 	std::fstream output_radiation("output_radiation/part-00000", std::fstream::in);
 	
 	//Get the name of the city with higher radiation
 	std::string city_max_rad = calculate_max_radiation(output_radiation);
+	
+	//set locale to spanish. Necessary to read decimal separator correctly
+	std::setlocale(LC_ALL, "es_ES.UTF-8");
 	
 	//read csv file from standard input
 	std::istream* std_in = &std::cin;
