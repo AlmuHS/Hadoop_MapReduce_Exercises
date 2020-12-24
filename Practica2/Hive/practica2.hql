@@ -50,7 +50,7 @@ SET hivevar:MAX_AVG_STA=(SELECT SSTATION
  * Task 2: Calculate the sum of rain of the station with highest average radiation
  */
 
---Calculate the sum of rain of each year, from this station
+--Calculate the sum of rain of each year, from this station, Export results to file
 INSERT OVERWRITE LOCAL DIRECTORY './output_rain' ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
         SELECT SSTATION, YEAR, SUM(RAIN) as SUM_RAIN
         FROM practica2.station_filtered
