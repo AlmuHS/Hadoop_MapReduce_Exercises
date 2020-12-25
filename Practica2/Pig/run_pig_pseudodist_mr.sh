@@ -10,10 +10,12 @@ then
 	if test $HADOOP_STD == 1
 	then
 		sed -i '/HADOOP_HOME=/s|hadoop_std|hadoop|' ~/.bashrc
-		export HADOOP_HOME
+		export HADOOP_HOME=$HADOOP_HOME
 		export JAVA_HOME
 	fi
 fi
+
+echo $HADOOP_HOME
 
 hadoop fs -copyFromLocal RIA_exportacion_datos_diarios_Huelva_20140206.csv
 hadoop fs -rm -r -f $HADOOP_DIR/output_radiation $HADOOP_DIR/output_rain

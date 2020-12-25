@@ -12,6 +12,8 @@ then
 	fi
 fi
 
+echo $HADOOP_HOME
+
 rm -rf output_ra*
 
 pig -x local practica2.pig

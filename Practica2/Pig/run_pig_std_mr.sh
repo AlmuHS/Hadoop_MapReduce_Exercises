@@ -7,10 +7,10 @@ HADOOP_DIR="hdfs://0.0.0.0:9000/user/$USER"
 if test -d /usr/local/hadoop_std
 then
 	HADOOP_STD=$(grep hadoop_std ~/.bashrc | wc -l)
-	if test $HADOOP_STD == 1
+	if test $HADOOP_STD == 0
 	then
 		sed -i '/HADOOP_HOME=/s|hadoop|hadoop_std|' ~/.bashrc
-		export HADOOP_HOME
+		export HADOOP_HOME=$HADOOP_HOME
 		export JAVA_HOME
 	fi
 fi
