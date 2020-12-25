@@ -43,8 +43,7 @@ avg_radiation = FOREACH radiation_gr GENERATE
 avg_radiation_dist = DISTINCT avg_radiation;
 
 --Store results in a file
-STORE avg_radiation_dist INTO 'output_radiation' using PigStorage('\t');
-
+STORE avg_radiation_dist INTO './output_radiation' using PigStorage('\t');
 
 ------------------------------------------------------------------------------------------------------
 
@@ -58,12 +57,8 @@ STORE avg_radiation_dist INTO 'output_radiation' using PigStorage('\t');
  */
 
 --Find the maximum average radiation value
-avg_radiation_gr = GROUP avg_radiation_dist ALL;
-max_avg_radiation = FOREACH avg_radiation_gr GENERATE
-			MAX(avg_radiation_dist.mid_radiation) as max_rad;
-
---Find the station with maximum radiation, using the previous value	
-max_rad_station = FILTER avg_radiation_dist BY mid_radiation == max_avg_radiation.max_rad;
+max_avg_radiation = ORDER avg_radiation_dist BY mid_radiation DESC;
+max_rad_station = LIMIT max_avg_radiation 1;
 
 /* Task 2.2: From station with highest average radiation, filter the rain and year columns
  *  Find the rows of this station in original replace_data, and extract its rain and year values
@@ -73,9 +68,9 @@ max_rad_station = FILTER avg_radiation_dist BY mid_radiation == max_avg_radiatio
 filter_rain = FILTER replace_data BY name_station == max_rad_station.name_station;
 station_rain = FOREACH filter_rain GENERATE name_station, rain, year;
 
-/* Task 2.3: Using data filtered by Task 2.2, calculate the sum of rain for each year
- * The results will be stored in a file, with formad "name_station year sum_rain"
- */
+--/* Task 2.3: Using data filtered by Task 2.2, calculate the sum of rain for each year
+-- * The results will be stored in a file, with format "name_station year sum_rain"
+-- */
 
 rain_gr = GROUP station_rain BY year;
 
@@ -84,7 +79,6 @@ rain_year = FOREACH rain_gr GENERATE
 	SUM(station_rain.rain);
 rain_year_dist = DISTINCT rain_year;
 
-
-STORE rain_year_dist INTO 'output_rain' using PigStorage('\t');
+STORE rain_year_dist INTO './output_rain' using PigStorage('\t');
 
 
