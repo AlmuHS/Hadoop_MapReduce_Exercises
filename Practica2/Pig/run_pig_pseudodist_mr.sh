@@ -1,3 +1,5 @@
+#!/bin/bash
+
 USER="almu"
 HADOOP_DIR="hdfs://0.0.0.0:9000/user/$USER"
 
