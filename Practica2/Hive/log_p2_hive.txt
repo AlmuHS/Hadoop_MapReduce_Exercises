@@ -1,0 +1,128 @@
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/hive/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+
+Logging initialized using configuration in jar:file:/usr/local/hive/lib/hive-common-2.3.7.jar!/hive-log4j2.properties Async: true
+OK
+Time taken: 4.533 seconds
+OK
+Time taken: 0.095 seconds
+OK
+Time taken: 0.421 seconds
+Loading data to table practica2.station_data
+OK
+Time taken: 0.657 seconds
+OK
+Time taken: 0.047 seconds
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = almu_20201226162446_2bbf3502-70a9-40ca-a92a-a003c778c887
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2020-12-26 16:24:49,240 Stage-1 map = 100%,  reduce = 0%
+Ended Job = job_local1633417069_0001
+Stage-4 is selected by condition resolver.
+Stage-3 is filtered out by condition resolver.
+Stage-5 is filtered out by condition resolver.
+Moving data to directory hdfs://0.0.0.0:9000/tmp/hive/almu/5d67f7c6-a13f-43a7-b882-68136c1b69a9/_tmp_space.db/66e62ac7-0f33-4147-9e95-8f2eed2b0da9/.hive-staging_hive_2020-12-26_16-24-46_511_9001378657737414057-1/-ext-10000
+Loading data to table practica2.station_filtered
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 6115588 HDFS Write: 7243272 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 2.832 seconds
+OK
+Time taken: 0.083 seconds
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = almu_20201226162449_c1d70d22-2fdb-42f6-94cd-3687f8e0201d
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2020-12-26 16:24:50,820 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local1034814038_0002
+Loading data to table practica2.avg_rad_table
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 14486544 HDFS Write: 14486811 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 1.447 seconds
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = almu_20201226162450_9dcad2a7-0d7f-455f-b5c9-a1d511d21888
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Job running in-process (local Hadoop)
+2020-12-26 16:24:52,171 Stage-1 map = 100%,  reduce = 0%
+Ended Job = job_local1298364874_0003
+Moving data to local directory output_radiation
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 7243539 HDFS Write: 7243539 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 1.324 seconds
+Warning: Value had a \n character in it.
+WARNING: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. spark, tez) or using Hive 1.X releases.
+Query ID = almu_20201226162452_b9e3894a-750c-40d5-86cd-c6bd6ed1e9cb
+Total jobs = 3
+Launching Job 1 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2020-12-26 16:24:53,692 Stage-3 map = 100%,  reduce = 100%
+Ended Job = job_local1998919205_0004
+Launching Job 2 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2020-12-26 16:24:54,880 Stage-4 map = 100%,  reduce = 100%
+Ended Job = job_local1316430707_0005
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/hive/lib/log4j-slf4j-impl-2.6.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop/share/hadoop/common/lib/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+2020-12-26 16:24:59	Starting to launch local task to process map join;	maximum memory = 477626368
+2020-12-26 16:25:00	Dump the side-table for tag: 0 with group count: 9 into file: file:/tmp/almu/5d67f7c6-a13f-43a7-b882-68136c1b69a9/hive_2020-12-26_16-24-52_228_4097203753785785736-1/-local-10005/HashTable-Stage-2/MapJoin-mapfile00--.hashtable
+2020-12-26 16:25:00	Uploaded 1 File to: file:/tmp/almu/5d67f7c6-a13f-43a7-b882-68136c1b69a9/hive_2020-12-26_16-24-52_228_4097203753785785736-1/-local-10005/HashTable-Stage-2/MapJoin-mapfile00--.hashtable (526143 bytes)
+2020-12-26 16:25:00	End of local task; Time Taken: 1.294 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 3 out of 3
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Job running in-process (local Hadoop)
+2020-12-26 16:25:02,649 Stage-2 map = 100%,  reduce = 100%
+Ended Job = job_local1489219981_0006
+Moving data to local directory output_rain
+MapReduce Jobs Launched: 
+Stage-Stage-3:  HDFS Read: 14487452 HDFS Write: 14487078 SUCCESS
+Stage-Stage-4:  HDFS Read: 14487452 HDFS Write: 14487078 SUCCESS
+Stage-Stage-2:  HDFS Read: 14487452 HDFS Write: 14487078 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+OK
+Time taken: 10.459 seconds

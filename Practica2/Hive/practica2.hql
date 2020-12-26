@@ -5,10 +5,16 @@ CREATE SCHEMA IF NOT EXISTS practica2;
 
 DROP TABLE practica2.station_data;
 
-CREATE TABLE practica2.station_data (IDREGION string, SREGION string, IDSTATION string, SSTATION string, SDATE string, DAY int, TEMPMAX string, HORMINTEMPMAX string, TEMPMIN string, HORMINTEMPMIN string, TEMPMID string, HUMIDITYMAX string, HUMIDITYMIN string, HUMIDITYMID string, SPWIND string, DIRWIND string, RADIATION string, RAIN string) 
-ROW FORMAT DELIMITED 
-FIELDS TERMINATED BY ';'
-STORED AS TEXTFILE;
+CREATE TABLE practica2.station_data (IDREGION string, SREGION string, IDSTATION string, 
+                                     SSTATION string, SDATE string, DAY int, TEMPMAX string, 
+                                     HORMINTEMPMAX string, TEMPMIN string, HORMINTEMPMIN string, 
+                                     TEMPMID string, HUMIDITYMAX string, HUMIDITYMIN string, 
+                                     HUMIDITYMID string, SPWIND string, DIRWIND string, 
+                                     RADIATION string, RAIN string
+                                    )
+                                ROW FORMAT DELIMITED 
+                                FIELDS TERMINATED BY ';'
+                                STORED AS TEXTFILE;
 
 LOAD DATA LOCAL INPATH './RIA_exportacion_datos_diarios_Huelva_20140206.csv' INTO TABLE practica2.station_data;
 

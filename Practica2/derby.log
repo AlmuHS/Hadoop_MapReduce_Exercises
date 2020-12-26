@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Thu Dec 24 16:24:52 CET 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0176-955a-4eac-00000b77d0d0 
+Thu Dec 24 16:34:52 CET 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0176-9563-7823-00000a2c9e40 
 on database directory /usr/local/hive/metastore_db with class loader sun.misc.Launcher$AppClassLoader@61443d8f 
 Loaded from file:/usr/local/hive/lib/derby-10.10.2.0.jar
 java.vendor=Debian
 java.runtime.version=1.8.0_275-8u275-b01-1-b01
-user.dir=/home/almu/Practicas_BigData/Practica2/Hive
+user.dir=/home/almu/Practicas_BigData/Practica2
 os.name=Linux
 os.arch=amd64
 os.version=5.9.0-4-amd64
