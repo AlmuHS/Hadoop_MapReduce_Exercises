@@ -30,18 +30,42 @@ station_filtered = radiation_fix_decimal.filter((radiation_fix_decimal.IDESTACIO
 #Calculate the radiation average for each station
 avg_radiation = station_filtered.groupBy("SESTACION") \
                                 .avg("RADIACION") \
-                                .withColumnRenamed("avg(RADIACION)", "AVG_RADIACION") \
-                                .orderBy(col("AVG_RADIACION").desc())
+                                .withColumnRenamed("avg(RADIACION)", "AVG_RADIACION")
+
 avg_radiation.show()
 #avg_radiation.write.parquet("./output_radiation")
 
+'''
+Task 2:
+'''
 
-#blank_as_zero = udf(lambda x: str(x).replace("", "0"), StringType())
-#rain_fix_empty = station_fix_quotes.withColumn("PRECIPITACION", blank_as_zero(station_fix_quotes.RADIACION))
-#rain_fix_decimal = rain_fix_empty.withColumn('PRECIPITACION',commaToDot(rain_fix_empty.PRECIPITACION))
-         
+# Get the station with highest average radiation
+max_avg_radiation = avg_radiation.orderBy(col("AVG_RADIACION").desc()) \
+                                 .limit(1)
+max_avg_radiation.show()
 
-                       
+# Filter the name of this station
+station_max_rad = max_avg_radiation.select(max_avg_radiation.columns[0])
+name_smaxrad = station_max_rad.first()["SESTACION"]
+
+# Filter the data from this station
+station_filtered2 = station_filtered.filter(station_filtered.SESTACION == name_smaxrad)
+
+# Fix format problems
+blank_as_zero = udf(lambda x: str(x).replace("", "0"), StringType())
+rain_fix_empty = station_filtered2.withColumn("PRECIPITACION", blank_as_zero(station_filtered2.RADIACION))
+rain_fix_decimal = rain_fix_empty.withColumn('PRECIPITACION',commaToDot(rain_fix_empty.PRECIPITACION))
+
+# Extract year from date
+rain_filter_year = rain_fix_decimal.withColumn('FECHA', rain_fix_decimal['FECHA'].substr(7,10)) \
+                                 .withColumnRenamed("FECHA", "ANIO")        
+rain_filter_year.show()
+
+rain_year = rain_filter_year.groupBy("PRECIPITACION", "ANIO") \
+                            .sum("PRECIPITACION") \
+                            .withColumnRenamed("sum(PRECIPITACION)", "TOTAL_PRECIPITACION") \
+                            .select("TOTAL_PRECIPITACION", "ANIO")
+
+rain_year.show()
 
 
-#
