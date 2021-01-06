@@ -3,7 +3,6 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
 
-
 '''
 Configuracion: connect with spark local instance
 '''
@@ -45,6 +44,7 @@ avg_radiation = station_filtered.groupBy("SESTACION") \
                                 .avg("RADIACION") \
                                 .withColumnRenamed("avg(RADIACION)", "AVG_RADIACION")
 
+# Group all partitions and save data to file
 avg_radiation.repartition(1).write.csv("output_radiation", sep='\t')
 
 '''
@@ -57,9 +57,11 @@ max_avg_radiation = avg_radiation.orderBy(col("AVG_RADIACION").desc()) \
 
 # Filter the name of this station
 station_max_rad = max_avg_radiation.select(max_avg_radiation.columns[0])
+
+# Store the name in a variable
 name_smaxrad = station_max_rad.first()["SESTACION"]
 
-# Filter the data from this station
+# Filter the data of this station, comparing its name with the previous variable
 station_filtered2 = station_filtered.filter(station_filtered.SESTACION == name_smaxrad)
 
 # Extract year from date
