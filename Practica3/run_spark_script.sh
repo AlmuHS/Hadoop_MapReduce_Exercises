@@ -1,3 +1,5 @@
+#!/bin/bash
+
 master_url=debian
 
 rm -rf output_ra*
