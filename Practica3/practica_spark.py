@@ -1,4 +1,3 @@
-import locale
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
