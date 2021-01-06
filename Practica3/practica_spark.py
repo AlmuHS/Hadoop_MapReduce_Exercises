@@ -8,15 +8,17 @@ conf = (SparkConf().setMaster("local").setAppName("Practica3").set("spark.execut
 sc = SparkContext(conf= conf)
 spark = SparkSession(sc)
 
-station_data = spark.read.options(delimiter=';', header='True').csv("RIA_exportacion_datos_diarios_Huelva_20140206.csv")
+station_data = spark.read.options(delimiter=';', header='True') \
+                    .csv("RIA_exportacion_datos_diarios_Huelva_20140206.csv")
 
-#Remove quotes and apply casting to integer
-remove_quotes = udf(lambda x : int(str(x).replace('\"', '')), IntegerType())
-station_fix_quotes = station_data.withColumn('IDESTACION',remove_quotes(station_data.IDESTACION))
 
 '''
 Task 1: 
 '''
+#Remove quotes and apply casting to integer
+remove_quotes = udf(lambda x : int(str(x).replace('\"', '')), IntegerType())
+station_fix_quotes = station_data.withColumn('IDESTACION',remove_quotes(station_data.IDESTACION))
+
 #Remove NULL values before casting radiation values
 radiation_fix_empty = station_fix_quotes.filter(station_fix_quotes.RADIACION.isNotNull())
 
@@ -33,7 +35,7 @@ avg_radiation = station_filtered.groupBy("SESTACION") \
                                 .withColumnRenamed("avg(RADIACION)", "AVG_RADIACION")
 
 avg_radiation.show()
-#avg_radiation.write.parquet("./output_radiation")
+avg_radiation.repartition(1).write.csv("output_radiation", sep='\t')
 
 '''
 Task 2:
@@ -52,8 +54,7 @@ name_smaxrad = station_max_rad.first()["SESTACION"]
 station_filtered2 = station_filtered.filter(station_filtered.SESTACION == name_smaxrad)
 
 # Fix format problems
-blank_as_zero = udf(lambda x: str(x).replace("", "0"), StringType())
-rain_fix_empty = station_filtered2.withColumn("PRECIPITACION", blank_as_zero(station_filtered2.RADIACION))
+rain_fix_empty = station_filtered2.fillna("0", subset=['PRECIPITACION'])
 rain_fix_decimal = rain_fix_empty.withColumn('PRECIPITACION',commaToDot(rain_fix_empty.PRECIPITACION))
 
 # Extract year from date
@@ -61,10 +62,13 @@ rain_filter_year = rain_fix_decimal.withColumn('FECHA', rain_fix_decimal['FECHA'
                                  .withColumnRenamed("FECHA", "ANIO")        
 rain_filter_year.show()
 
-rain_year = rain_filter_year.groupBy("PRECIPITACION", "ANIO") \
+rain_year = rain_filter_year.groupBy("SESTACION", "ANIO") \
                             .sum("PRECIPITACION") \
                             .withColumnRenamed("sum(PRECIPITACION)", "TOTAL_PRECIPITACION") \
-                            .select("TOTAL_PRECIPITACION", "ANIO")
+                            .select("SESTACION", "ANIO", "TOTAL_PRECIPITACION") \
+                            .orderBy(col("ANIO").asc())
+
+rain_year.repartition(1).write.csv("output_rain", sep='\t')
 
 rain_year.show()
 
