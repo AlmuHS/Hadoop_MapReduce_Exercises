@@ -1,0 +1,3 @@
+- Operating System: Debian GNU/Linux 11 (bullseye)
+- Installation Guide: https://computingforgeeks.com/how-to-install-apache-spark-on-ubuntu-debian/
+- Running time: ~17 seconds
